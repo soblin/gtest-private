@@ -1,0 +1,38 @@
+sudo: required
+cache:
+  - apt
+
+language: cpp
+
+env:
+  global:
+    - CI_ROOT_PATH=$(pwd)
+
+branches:
+  only:
+    - master
+
+notifications:
+  email:
+    on_success: never
+    on_failure: never
+
+compiler:
+  - gcc
+  - clang
+  
+before_script:
+  - git submodule init
+  - git submodule update
+  - cd $CI_ROOT_PATH/googletest/googletest
+  - git checkout v1.8.x
+  - mkdir build && cd build
+  - cmake .. -DCMAKE_CXX_STANDARD=11
+  - make
+  - cd $CI_ROOT_PATH
+
+script:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make && make test
