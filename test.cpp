@@ -21,7 +21,7 @@ TEST_F(BinaryCalculatorTestFriend, test_calc){
   calculator.minus();
   ASSERT_EQ(GetAns(calculator), 1-2);
   
-  auto squared = [](auto a, auto b){ return a * a + b * b; };
+  auto squared = [](int a, int b){ return a * a + b * b; };
   calculator.calc(squared);
   ASSERT_EQ(GetAns(calculator), 1*1+2*2);
 }
